@@ -1,0 +1,8 @@
+type: framework
+content:
+- Problem formalization
+- Feature matrix
+- Logistic Regression
+- L1-regularization
+- Dimensionality reduction
+current_task: 4

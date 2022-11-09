@@ -1,0 +1,21 @@
+<h5 id="description">Description</h5>
+<p>We will work with the <strong>Large Movie Review Dataset</strong>. This dataset was collected in association with the <a href="https://ai.stanford.edu/~amaas/papers/wvSent_acl2011.pdf" rel="noopener noreferrer nofollow" target="_blank">Learning Word Vectors for Sentiment Analysis</a> paper. It has a wide range of metadata, including cast, crew, plot keywords, budget, posters, release dates, languages, production companies, and countries in movie reviews. In our case, the reviews are not just the opinions of viewers. We also take the comments of movie directors and announcements into account. Some of these reviews are available before the movie's premiere. Also, we have ratings from <code class="java">0</code> to <code class="java">10</code> for all films in the training data. Our goal is to build a model for predicting which movie will have higher ratings after analyzing the reviews with metadata.</p>
+<p>The whole point is that we can get that kind of metadata before the movie premiere! So, video hosting services can buy broadcasting rights only for the best movies, or work on their marketing campaigns if the predictions are not very promising.</p>
+<p>By predicting the ratings from <code class="java">0</code> to <code class="java">10</code>, we can solve the <strong>regression problem</strong>. But is there any difference between movies with ratings of <code class="java">2.72</code> or <code class="java">3.14</code>? Both movies are bad, so they are not a good fit for our video hosting platform. Tastes differ and making one universal system for all countries, ages, and personal preferences is impossible. But both movies rated <code class="java">8.91</code> and <code class="java">9.18</code> are good enough for our platform. So the problem becomes a <strong>classification problem</strong>. To solve it, let's tag movies with ratings &gt; 7 as "good" and with movie ratings &lt; 5 as "bad." Other data isn't relevant to us. </p>
+<h5 id="objectives">Objectives</h5>
+<p></p><div class="alert alert-primary">We have automated the data download process in the <em>.py</em> file provided to you. However, if it's inconvenient, feel free to download <a href="https://www.dropbox.com/s/0sj7tz08sgcbxmh/large_movie_review_dataset.csv?dl=0" rel="noopener noreferrer nofollow" target="_blank">the dataset</a> on your own.</div><p></p>
+<p>The first stage of any DS project is to prepare the data: </p>
+<ol>
+<li>Read a <em>.csv</em> file with data;</li>
+<li>Delete all rows with ratings within the range <code class="java">[5; 7]</code>;</li>
+<li>Add a new binary column <code class="java">label</code>;</li>
+<li>Fill the new column with labels: <code class="java">1</code> if <code class="java">rating</code> &gt; 7 and <code class="java">0</code> if <code class="java">rating</code> &lt; 5;</li>
+<li>Drop the <code class="java">rating</code> column — we no longer need it.</li>
+<li>Make sure the data is balanced; the number of movies labeled as <code class="java">1</code> is approximately the same as the number of movies labeled as <code class="java">0</code> . What is the percentage of "good" movie after filtering?</li>
+<li>As a result, print the number of rows in the initial dataset, the number of rows in the filtered dataset, and the proportion of "good" movies. Print each number on a separate line.</li>
+</ol>
+<h5 id="example">Example</h5>
+<p><em>An example of the program output:</em></p>
+<pre><code class="language-no-highlight">10000  # number of rows in the initial dataset
+8000  # number of rows after filtering
+0.3  # the proportion of "good" movies</code></pre>

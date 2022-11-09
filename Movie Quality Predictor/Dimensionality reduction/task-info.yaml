@@ -1,0 +1,107 @@
+type: edu
+files:
+- name: main.py
+  visible: true
+  text: |
+    import pandas as pd
+    import os
+    import requests
+
+    # Data downloading script
+
+    ########
+    if not os.path.exists('../Data'):
+        os.mkdir('../Data')
+
+    # Download data if it is unavailable.
+    if ('dataset.csv' not in os.listdir('../Data')):
+        print('Dataset loading.')
+        url = "https://www.dropbox.com/s/0sj7tz08sgcbxmh/large_movie_review_dataset.csv?dl=1"
+        r = requests.get(url, allow_redirects=True)
+        open('../Data/dataset.csv', 'wb').write(r.content)
+        print('Loaded.')
+    # The dataset is saved to `Data` directory
+    ########
+
+    # write your code here
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |
+    from test.tests import Stage5Test
+
+    if __name__ == '__main__':
+        Stage5Test().run_tests()
+  learner_created: false
+- name: test/tests.py
+  visible: false
+  text: |
+    from hstest import *
+    from math import isclose
+
+
+    def is_float(num: str):
+        try:
+            float(num)
+            return True
+        except ValueError:
+            return False
+
+
+    class Stage5Test(StageTest):
+        def check_outputs_number(self, values_number: int, user_output: str):
+            outputs = user_output.split()
+
+            if not all(is_float(output) for output in outputs):
+                raise WrongAnswer(f"Answer '{user_output}' contains non-numeric values.")
+
+            if len(outputs) != values_number:
+                raise WrongAnswer(f"Answer contains {len(outputs)} values, but {values_number} values are expected.")
+
+        def check_num_values(self, values: list, user_values: list, message: str, rel_tol=1.0e-2):
+            if not all(isclose(value, user_value, rel_tol=rel_tol) for value, user_value in zip(values, user_values)):
+                raise WrongAnswer(message)
+
+        @dynamic_test(time_limit=600000)
+        def test(self):
+            pr = TestedProgram()
+            user_output = pr.start().strip()
+
+            if len(user_output.strip()) == 0:
+                raise WrongAnswer("Seems like your program does not show any output.")
+
+            # check output format
+            self.check_outputs_number(2, user_output)
+
+            # check accuracy after PCA
+            answer = [0.85632]
+            user_values = [float(value) for value in user_output.split()][:1]
+            self.check_num_values(answer, user_values,
+                                  "The accuracy on the test set after PCA optimization is wrong.\n"
+                                  "Check the parameters of your estimator LogisticRegression(solver='liblinear').\n"
+                                  "Make sure that you provide numbers in the correct order.")
+
+            # check AUC after PCA
+            answer = [0.93701]
+            user_values = [float(value) for value in user_output.split()][1:2]
+            self.check_num_values(answer, user_values,
+                                  "The AUC on the test set after PCA optimization is wrong.\n"
+                                  "Check the parameters of your estimator LogisticRegression(solver='liblinear').\n"
+                                  "Make sure that you provide numbers in the correct order.")
+
+            return CheckResult.correct()
+
+
+    if __name__ == '__main__':
+        Stage5Test().run_tests()
+  learner_created: false
+- name: test/__init__.py
+  visible: false
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/21082#comment
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
+    Academy</a> to continue learning.
+  time: "Wed, 09 Nov 2022 13:28:50 UTC"
+record: -1

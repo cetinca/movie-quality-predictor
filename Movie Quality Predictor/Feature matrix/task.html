@@ -1,0 +1,16 @@
+<h5 id="description">Description</h5>
+<p>As you can see, our metadata structure is poor, which makes it challenging to create new columns like <code class="java">Starring</code> or <code class="java">Genre</code> without empty cells. On the other hand, it is unlikely that a genre will significantly influence the movie rating. Of course, an ensemble cast can drive the ratings up, but if we make a feature for every actor, our feature matrix will be too sparse.</p>
+<p>What should we do then? Let's find a method to extract the information from reviews. Let's try <strong>bag-of-words</strong>. With this method, we compile an extensive dictionary with all words from all texts (the "bag"). Then, we count the number of occurrences in each text (a review) for every word. Our new digit features stand for word frequency. It is no secret that we lose part of the information, but bag-of-words has proven effective in many problems. In the future, you will learn about how to upgrade this method by dropping the most frequently used words from the bag (they are mostly junk words without meaning). At the same time, words with the lowest frequency aren't helpful either because we can't squeeze anything meaningful from them.</p>
+<h5 id="objectives">Objectives</h5>
+<p>Let's transform our words into a feature matrix using the bag-of-words model: </p>
+<ol>
+<li>Take a look at a few reviews. Do they have anything in common? What features can you extract from them? Are the features from the first five reviews different or the same?</li>
+<li>Split all the data into training and test samples. Use the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" rel="noopener noreferrer nofollow" target="_blank">train_test_split</a> method. Set <code class="java">random_state=23</code> (other parameters are default);</li>
+<li>For the text feature extraction, apply <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html" rel="noopener noreferrer nofollow" target="_blank">TfidfVectorizer</a>;</li>
+<li>At this point, there is a danger of <strong>data leakage</strong>. It can become an issue when information from the test set is used to fit a model. It makes further evaluation of the model unobjective since the IDF part of the TF-IDF feature matrix includes information from the test set. In other words, the model already "saw" the test set during the learning stage. To avoid data leakage, after initializing <code class="java">TfidfVectorizer</code>, apply the <code class="java">fit_transform()</code> method to the training set to learn the vocabulary and transform the reviews from the training set to the training feature matrix. Then use the <code class="java">transform()</code> method with the test set of reviews to get the test feature matrix based on the previously learned vocabulary;</li>
+<li>Transform texts into a feature matrix using <code class="java">TfidfVectorizer</code>. For better results, set <code class="java">sublinear_tf=True</code>.</li>
+<li>How many features do we have after the transformation? Print the number of features you got as a result.</li>
+</ol>
+<h5 id="example">Example</h5>
+<p><em>An example of the program output:</em></p>
+<pre><code class="language-no-highlight">55539  # the number of features</code></pre>

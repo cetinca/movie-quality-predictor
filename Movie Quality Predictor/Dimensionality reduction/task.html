@@ -1,0 +1,26 @@
+<h5 id="description">Description</h5>
+<p>As you have already seen, a matrix with a considerable amount of features doesn't guarantee the high quality of your model, especially in models with a bag-of-words. Our previous type of feature selection by L1-regularization has some drawbacks. To begin with, LASSO doesn't understand that all the features are words and deletes the features with the smallest weight. Sometimes, separate words can't be good features, but they might be important for the text contents together with another word or two. For example, the words "decision" and "tree." Each of them separately can't help to understand what the text is about. But together ("decision tree"), they give you the idea. </p>
+<p>There are a lot of complex NLP models for analyzing words, word combinations, and phrases. We will not discuss them here, and the matrix of features is more than a list of columns. Some columns (features) may be connected with others. Let's take some of these connections into consideration without using complex NLP models but with the help of a mathematical transformation.</p>
+<p>Every n-dimensional matrix is a mathematical transformation in an n-dimensional vector space. Look at the example in the picture. </p>
+<p style="text-align: center;"><img alt="" height="265" src="https://lh4.googleusercontent.com/lKzPRL4_jLaEu5xrPUOxtjJzVFgwrWJwDrjGSnGXcQBj_0kbfiKbunDaToUur61OIHI3a7yDC1NiWPERtkAxzeNq6_BjSMdiKOt7feizzv3mFRFyqpyF84oRRo0Tl8ojD4z-o4Nk" width="602"/></p>
+<p>In the <strong>Principal Component Analysis </strong>(PCA), we search for a new matrix in the low-dimensional vector space with the same transformation. The transformed matrix must be as similar as possible to the original one. PCA is one of the most popular and effective methods of dimensionality reduction. It gives you the advantage of analyzing a matrix as a single complex, not as a list of columns. </p>
+<p>In previous stages, you've found out how many features are necessary for our classification model. Now, let's try to use PCA for the <strong>dimensionality reduction</strong>, knowing the approximate number of dimensions in the new vector space, which is the same as the number of features after L1-regularization.</p>
+<p>In this stage, you will apply singular value decomposition (SVD), one of the methods to perform the PCA.</p>
+<h5 id="objectives">Objectives</h5>
+<p>Upgrade the model and use the dimensionality reduction method from the library to fit the model again: </p>
+<ol>
+<li>Construct an object of the <code class="java">LogisticRegression</code> class. Use the parameter <code class="java">solver='liblinear'</code>;</li>
+<li>Import a ready-made <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html" rel="noopener noreferrer nofollow" target="_blank">implementation</a> of SVD from <code class="java">sklearn</code>;</li>
+<li>Round the number of the most essential features from Stage 4 to hundreds (for example, .431 ≈ 400);</li>
+<li>Construct an object of the <code class="java">TruncatedSVD</code> class with the default parameters. Set the number of components equal to the rounded number of features;</li>
+<li>Get the training and test feature matrix with PCA;</li>
+<li>To avoid data leakage, apply the <code class="java">fit_transform()</code> method to the training set and <code class="java">fit()</code> to the test set. For more information on the data leakage problem, refer to Stage 2;</li>
+<li>Fit <code class="java">Logistic Regression</code> on the training feature matrix.</li>
+<li>Calculate the accuracy of your model on the test set. Is the PCA effective?</li>
+<li>Calculate the AUC of your model on the test set. Is the PCA effective?</li>
+<li>As a result, print the two numbers: the accuracy and the AUC on the test set after applying SVD. Print each number on a separate line.</li>
+</ol>
+<h5 id="example">Example</h5>
+<p><em>An example of the program output:</em></p>
+<pre><code class="language-no-highlight">0.74  # accuracy
+0.84  # AUC score</code></pre>

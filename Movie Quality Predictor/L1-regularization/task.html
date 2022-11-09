@@ -1,0 +1,21 @@
+<h5 id="description">Description</h5>
+<p>Your model seems to have a lot of features. Are all of them necessary for the result? Suppose you are talking to your friend over the phone about the weather and the quality of your connection isn't very good. So you fail to catch a few words. </p>
+<p>For example: "<em>Hello, <strike>&lt;user_name&gt;</strike>! It's <strike>so</strike> cold <strike>today</strike>! I <strike>put</strike> on <strike>the</strike> green <strike>sweater</strike> you <strike>gave</strike> me <strike>last</strike> X-mas <strike>and</strike> a <strike>new</strike> coat! <strike>It</strike> was really freezing <strike>outdoors</strike>!"</em> As you can see, the connection was really bad so you missed every second word! However, it is still possible to get the point that you may need to wear warm clothes today.</p>
+<p>You can guess that there are a lot of extra words in our bag, and a lot of extra features in our feature matrix do not improve the model's performance. Let's find them! No, you don't have to get into the bag: there are mathematical methods that give penalties for unnecessary features. The most popular is <strong>L1-regularization</strong>, also known as <strong>LASSO</strong>. LASSO sets coefficients of extra features to null, or sometimes near null. Let's add L1-regularization to our model and compare the new results with the old ones.</p>
+<p>Fast-forwarding, the LASSO results will be a bit worse. Is it a bad thing? Actually, not — a 2-3% margin for our predictor is not critical. But the number of features will decrease by hundreds of times! The new model will need less time to perform all the calculations and make the prediction. By the way, fewer features are much better for interpretation, and that's how it should be.</p>
+<h5 id="objectives">Objectives</h5>
+<p>Building and scoring models aren't everything. Every model needs improvement. Let's continue working with logistic regression again but with other parameters: </p>
+<ol>
+<li>Construct an object of the <code class="java">LogisticRegression</code> class. Use the <code class="java">solver='liblinear'</code> parameter;</li>
+<li>Customize the model by adding L1-regularization <code class="java">penalty='l1'</code> and setting the parameter <code class="java">C=0.15</code>. The smaller the <code class="java">C</code>, the more strictly the features are selected, which means fewer features in the end (<code class="java">C=1</code> by default);</li>
+<li>Fit your model on the training feature matrix that you've got on Stage 2;</li>
+<li>Calculate the accuracy of your model on the test set. Is LASSO effective?</li>
+<li>Calculate the AUC of your model on the test set. Is LASSO effective?</li>
+<li>How many features are considered by the model? Count only non-null features — the ones with coefficients more than <code class="java">0.0001</code>. Null features are irrelevant; you can drop them for simplification;</li>
+<li>As a result, print three numbers: accuracy and AUC on the test set and the number of features left after the selection. Print each number on a separate line.</li>
+</ol>
+<h5 id="example">Example</h5>
+<p><em>An example of the program output</em></p>
+<pre><code class="language-no-highlight">0.883  # accuracy
+0.794  # AUC score
+123  # the number of features left</code></pre>

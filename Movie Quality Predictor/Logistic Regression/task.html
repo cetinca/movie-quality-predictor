@@ -1,0 +1,14 @@
+<h5 id="description">Description</h5>
+<p>In this stage, we will try to solve our classification problem using <strong>logistic regression</strong>. Then, let's add two metrics to the model: <strong>Accuracy</strong> and <strong>AUC</strong> (Area Under the Curve). Accuracy is the proportion of the correct predictions to their total number. AUC is the measure of a classifier's ability to distinguish between classes. It is used as a summary of the <strong>Receiver Operating Characteristic</strong> (ROC) curve. For more information, study the <a href="https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5" rel="noopener noreferrer nofollow" target="_blank">Understanding AUC - ROC Curve</a> article by Sarang Narkhede. We recommend ready-made implementations of the model and metrics from <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html" rel="noopener noreferrer nofollow" target="_blank">sklearn.linear_model</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html" rel="noopener noreferrer nofollow" target="_blank">sklearn.metrics</a>, respectively.</p>
+<h5 id="objectives">Objectives</h5>
+<p>Welcome to one day in the life of a data scientist: building and scoring models. Ready, steady, go: </p>
+<ol>
+<li>Construct an object of the <code class="java">LogisticRegression</code> class. Use the <code class="java">solver='liblinear'</code> parameter;</li>
+<li>Fit your model on the training feature matrix you got during the previous stage;</li>
+<li>Calculate the Accuracy and AUC score of your model on the test set;</li>
+<li>As a result, output two values: Accuracy and AUC score on the test set. Print each number on a separate line.</li>
+</ol>
+<h5 id="example">Example</h5>
+<p><em>An example of the program output:</em></p>
+<pre><code class="language-no-highlight">0.773  # accuracy
+0.863  # AUC score</code></pre>
