@@ -66,6 +66,7 @@ def stage3():
     model.fit(X_train, y_train)
     y_predict = model.predict(X_test)
     acc_score = accuracy_score(y_test, y_predict)
+    # predict_proba returns probability for 0 and 1.
     auc_score = roc_auc_score(y_test, model.predict_proba(X_test)[:, 1])
     print(acc_score.__round__(4))
     print(auc_score.__round__(4))
@@ -83,7 +84,7 @@ def stage4():
     print(acc_score.__round__(4))
     print(auc_score.__round__(4))
     # finding coefficients after lasso which is not null
-    print(len([c for c in model.coef_[0] if c]))
+    print(len([c for c in model.coef_[0] if abs(c) > 0.0001]))
 
 
 def stage5():
